@@ -1,4 +1,4 @@
-import { getSupabaseServerPublicClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import ProductForm from "@/components/admin/ProductForm";
 import type { Product, Collection } from "@/types";
@@ -9,7 +9,7 @@ interface Props {
 
 export default async function EditProductPage({ params }: Props) {
   const { id } = await params;
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
 
   const [{ data: productData }, { data: collectionsData }] = await Promise.all([
     supabase

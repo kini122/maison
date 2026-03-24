@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSupabaseServerPublicClient, getSupabaseServerClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -7,7 +7,7 @@ interface Params {
 
 export async function GET(request: NextRequest, { params }: Params) {
   const { id } = await params;
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("products")
     .select(`

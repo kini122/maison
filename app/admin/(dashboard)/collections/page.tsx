@@ -1,10 +1,10 @@
-import { getSupabaseServerPublicClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import Image from "next/image";
 import type { Collection } from "@/types";
 
 export default async function AdminCollectionsPage() {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data } = await supabase
     .from("collections")
     .select("*, product_count:products(count)")

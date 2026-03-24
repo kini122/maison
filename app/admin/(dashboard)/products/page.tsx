@@ -1,11 +1,11 @@
-import { getSupabaseServerPublicClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/types";
 import { formatPrice, getPrimaryImageUrl, getTotalStock } from "@/lib/utils";
 
 export default async function AdminProductsPage() {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data } = await supabase
     .from("products")
     .select(`

@@ -1,9 +1,9 @@
-import { getSupabaseServerPublicClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { Package, FolderOpen, AlertTriangle, TrendingDown } from "lucide-react";
 
 export default async function AdminDashboardPage() {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
 
   // Fetch stats in parallel
   const [

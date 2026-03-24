@@ -1,4 +1,4 @@
-import { getSupabaseServerPublicClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import CollectionForm from "@/components/admin/CollectionForm";
 import type { Collection } from "@/types";
@@ -9,7 +9,7 @@ interface Props {
 
 export default async function EditCollectionPage({ params }: Props) {
   const { id } = await params;
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
 
   const { data } = await supabase
     .from("collections")

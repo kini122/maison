@@ -1,9 +1,9 @@
-import { getSupabaseServerPublicClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 import ProductForm from "@/components/admin/ProductForm";
 import type { Collection } from "@/types";
 
 export default async function NewProductPage() {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data } = await supabase
     .from("collections")
     .select("*")

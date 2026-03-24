@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSupabaseServerPublicClient, getSupabaseServerClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 export async function GET() {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("collections")
     .select("*")
