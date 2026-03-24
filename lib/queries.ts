@@ -1,5 +1,5 @@
 import type { Product, Collection, ProductImage } from "@/types";
-import { getSupabaseServerPublicClient } from "@/lib/supabase/server";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 const IMAGE_SELECT = `
   id,
@@ -42,7 +42,7 @@ const PRODUCT_SELECT = `
 `;
 
 export async function getAllCollections(): Promise<Collection[]> {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("collections")
     .select("*, product_count:products(count)")
@@ -63,7 +63,7 @@ export async function getAllCollections(): Promise<Collection[]> {
 export async function getCollectionBySlug(
   slug: string
 ): Promise<Collection | null> {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("collections")
     .select("*")
@@ -82,7 +82,7 @@ export async function getProductsByCollection(
   sort: "price_asc" | "price_desc" | "newest" = "newest",
   size?: string
 ): Promise<{ products: Product[]; total: number }> {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
 
   // Get collection id first
   const { data: col } = await supabase
@@ -127,7 +127,7 @@ export async function getProductsByCollection(
 export async function getProductBySlug(
   slug: string
 ): Promise<Product | null> {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_SELECT)
@@ -148,7 +148,7 @@ export async function getProductBySlug(
 }
 
 export async function getFeaturedProducts(limit = 8): Promise<Product[]> {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_SELECT)
@@ -165,7 +165,7 @@ export async function getRelatedProducts(
   currentProductId: string,
   limit = 4
 ): Promise<Product[]> {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_SELECT)
@@ -179,19 +179,19 @@ export async function getRelatedProducts(
 }
 
 export async function getAllProductSlugs(): Promise<string[]> {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data } = await supabase
     .from("products")
     .select("slug")
     .eq("is_active", true);
-  return (data || []).map((p) => p.slug);
+  return (data || []).map((p: any) => p.slug);
 }
 
 export async function getAllCollectionSlugs(): Promise<string[]> {
-  const supabase = getSupabaseServerPublicClient();
+  const supabase = getSupabaseServerClient();
   const { data } = await supabase
     .from("collections")
     .select("slug")
     .eq("is_active", true);
-  return (data || []).map((c) => c.slug);
+  return (data || []).map((c: any) => c.slug);
 }
